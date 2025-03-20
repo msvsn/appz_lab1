@@ -1,0 +1,14 @@
+C:\Users\kolos\APPZ_lab1_v6\bin\Debug\net6.0\AnimalSimulator.exe
+C:\Users\kolos\APPZ_lab1_v6\bin\Debug\net6.0\AnimalSimulator.deps.json
+C:\Users\kolos\APPZ_lab1_v6\bin\Debug\net6.0\AnimalSimulator.runtimeconfig.json
+C:\Users\kolos\APPZ_lab1_v6\bin\Debug\net6.0\AnimalSimulator.dll
+C:\Users\kolos\APPZ_lab1_v6\bin\Debug\net6.0\AnimalSimulator.pdb
+C:\Users\kolos\APPZ_lab1_v6\obj\Debug\net6.0\AnimalSimulator.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\kolos\APPZ_lab1_v6\obj\Debug\net6.0\AnimalSimulator.AssemblyInfoInputs.cache
+C:\Users\kolos\APPZ_lab1_v6\obj\Debug\net6.0\AnimalSimulator.AssemblyInfo.cs
+C:\Users\kolos\APPZ_lab1_v6\obj\Debug\net6.0\AnimalSimulator.csproj.CoreCompileInputs.cache
+C:\Users\kolos\APPZ_lab1_v6\obj\Debug\net6.0\AnimalSimulator.dll
+C:\Users\kolos\APPZ_lab1_v6\obj\Debug\net6.0\refint\AnimalSimulator.dll
+C:\Users\kolos\APPZ_lab1_v6\obj\Debug\net6.0\AnimalSimulator.pdb
+C:\Users\kolos\APPZ_lab1_v6\obj\Debug\net6.0\AnimalSimulator.genruntimeconfig.cache
+C:\Users\kolos\APPZ_lab1_v6\obj\Debug\net6.0\ref\AnimalSimulator.dll
