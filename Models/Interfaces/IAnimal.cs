@@ -13,9 +13,9 @@ namespace APPZ_lab1_v6.Models.Interfaces
         ILivingEnvironment LivingEnvironment { get; set; }
         Eyes Eyes { get; set; }
         Legs Legs { get; set; }
-        
-        void OnHungryStateChanged();
-        void OnHappinessStateChanged();
-        void OnDeathStateChanged();
+        void UpdateState(IAnimalStateService stateService);
+        void OnHungryStateChanged(bool isHungry, double hoursSinceFeeding);
+        void OnHappinessStateChanged(bool isHappy, string environmentName);
+        void OnDeathStateChanged(double hoursWithoutFood);
     }
 }

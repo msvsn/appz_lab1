@@ -12,3 +12,4 @@ C:\Users\kolos\APPZ_lab1_v6\obj\Debug\net9.0\refint\AnimalSimulator.dll
 C:\Users\kolos\APPZ_lab1_v6\obj\Debug\net9.0\AnimalSimulator.pdb
 C:\Users\kolos\APPZ_lab1_v6\obj\Debug\net9.0\AnimalSimulator.genruntimeconfig.cache
 C:\Users\kolos\APPZ_lab1_v6\obj\Debug\net9.0\ref\AnimalSimulator.dll
+C:\Users\kolos\APPZ_lab1_v6\obj\Debug\net9.0\AnimalSimulator.sourcelink.json

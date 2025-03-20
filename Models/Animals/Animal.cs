@@ -2,6 +2,7 @@ using System;
 using APPZ_lab1_v6.Models.Interfaces;
 using APPZ_lab1_v6.Services;
 using APPZ_lab1_v6.Models.Parts;
+using APPZ_lab1_v6.Models.Events;
 
 namespace APPZ_lab1_v6.Models.Animals
 {
@@ -43,8 +44,16 @@ namespace APPZ_lab1_v6.Models.Animals
         public virtual bool Fly() => false;
         public virtual bool Crawl() => IsAlive;
 
-        public void OnHungryStateChanged() => HungryStateChanged?.Invoke(this, EventArgs.Empty);
-        public void OnHappinessStateChanged() => HappinessStateChanged?.Invoke(this, EventArgs.Empty);
-        public void OnDeathStateChanged() => DeathStateChanged?.Invoke(this, EventArgs.Empty);
+        public virtual void OnHungryStateChanged(bool isHungry, double hoursSinceFeeding) => 
+            HungryStateChanged?.Invoke(this, new HungryEventArgs(Name, isHungry, hoursSinceFeeding));
+        public virtual void OnHappinessStateChanged(bool isHappy, string environmentName) => 
+            HappinessStateChanged?.Invoke(this, new HappinessEventArgs(Name, isHappy, environmentName));
+        public virtual void OnDeathStateChanged(double hoursWithoutFood) => 
+            DeathStateChanged?.Invoke(this, new DeathEventArgs(Name, hoursWithoutFood));
+
+        public void UpdateState(IAnimalStateService stateService)
+        {
+            stateService.UpdateState(this);
+        }
     }
 }
