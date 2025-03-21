@@ -19,12 +19,14 @@ namespace APPZ_lab1_v6
             var bodyPartsService = new BodyPartsService();
             var stateService = new AnimalStateService(gameTime);
             var actionService = new AnimalActionService(stateService, gameTime);
-            var tradeService = new AnimalTradeService(petShop, wilderness, stateService);
-            var environmentService = new EnvironmentService(stateService, gameTime);
             var autoFeeder = new AutoFeeder(stateService);
+            var environmentService = new EnvironmentService(stateService, gameTime, autoFeeder);
+            var tradeService = new AnimalTradeService(petShop, wilderness, stateService, autoFeeder);
             var animalList = new List<IAnimal>();
-            var creationService = new AnimalCreationService(petShop, bodyPartsService, animalList);
+            var creationService = new AnimalCreationService(petShop, bodyPartsService, animalList, autoFeeder);
             var animalService = new AnimalService(creationService, stateService, actionService, tradeService, environmentService, gameTime, autoFeeder, petShop, wilderness, animalList);
+            autoFeeder.EnableAutoFeedingForEnvironment(petShop);
+            autoFeeder.EnableAutoFeedingForEnvironment(wilderness);
             var mainMenu = new MainMenu(animalService, gameTime, autoFeeder);
             mainMenu.Show();
         }

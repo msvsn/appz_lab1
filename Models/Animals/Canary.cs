@@ -7,7 +7,7 @@ namespace APPZ_lab1_v6.Models.Animals
     {
         public string FeatherColor { get; set; }
         public Wings Wings { get; set; }
-        public override int MealsPerDay => 2;
+        public override int MealsPerDay => 4;
 
         public Canary(string name, int age, string featherColor, Eyes eyes, Legs legs, Wings wings)
             : base(name, age, eyes, legs)

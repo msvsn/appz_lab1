@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using APPZ_lab1_v6.Models.Interfaces;
 using APPZ_lab1_v6.Services.Animals;
+using APPZ_lab1_v6.Models.Environments;
 
 namespace APPZ_lab1_v6.Services
 {
@@ -17,7 +18,14 @@ namespace APPZ_lab1_v6.Services
 
         public void EnableAutoFeeding(IAnimal animal)
         {
-            if (animal.IsAlive) _autoFedAnimals.Add(animal.Id);
+            if (animal.IsAlive) 
+            {
+                _autoFedAnimals.Add(animal.Id);
+                if (_stateService.NeedsFeeding(animal) || _stateService.IsHungry(animal))
+                {
+                    _stateService.Feed(animal);
+                }
+            }
         }
 
         public void DisableAutoFeeding(IAnimal animal) => _autoFedAnimals.Remove(animal.Id);
@@ -33,6 +41,16 @@ namespace APPZ_lab1_v6.Services
                 {
                     _stateService.Feed(animal);
                 }
+            }
+        }
+
+        public void EnableAutoFeedingForEnvironment(ILivingEnvironment environment)
+        {
+            if (environment == null) return;
+            
+            foreach (var animal in environment.GetAnimals())
+            {
+                EnableAutoFeeding(animal);
             }
         }
     }
