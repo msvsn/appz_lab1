@@ -3,6 +3,7 @@ using APPZ_lab1_v6.Models.Animals;
 using APPZ_lab1_v6.Models.Interfaces;
 using System.Collections.Generic;
 using System;
+using APPZ_lab1_v6.Models.Environments;
 
 namespace APPZ_lab1_v6.UI
 {
@@ -110,11 +111,28 @@ namespace APPZ_lab1_v6.UI
                 return;
             }
 
-            bool success = _animalService.FeedAnimal(animal);
-            if (success)
-                ConsoleOutput.ShowSuccess($"Тварину {animal.Name} успішно погодовано!");
+            if (!animal.IsAlive)
+            {
+                ConsoleOutput.ShowError("Тварина мертва");
+                _deathMenu.Show(animal);
+                return;
+            }
+
+            if (animal.LivingEnvironment is PetShop || animal.LivingEnvironment is Wilderness)
+            {
+                ConsoleOutput.ShowMessage("Ця тварина годується автоматично");
+                ConsoleOutput.WaitForKey();
+                return;
+            }
+
+            if (_animalService.FeedAnimal(animal))
+            {
+                ConsoleOutput.ShowSuccess($"Тварина {animal.Name} погодована");
+            }
             else
-                ConsoleOutput.ShowError(animal.IsAlive ? $"Тварина {animal.Name} ще не голодна." : $"Тварина {animal.Name} мертва!");
+            {
+                ConsoleOutput.ShowError($"Не вдалося погодувати тварину {animal.Name}.");
+            }
             ConsoleOutput.WaitForKey();
         }
 
@@ -131,13 +149,20 @@ namespace APPZ_lab1_v6.UI
             }
             if (!animal.IsAlive)
             {
-                ConsoleOutput.ShowError("Тварина мертва!");
+                ConsoleOutput.ShowError("Тварина мертва");
                 _deathMenu.Show(animal);
                 return;
             }
 
             bool isEnabled = _autoFeeder.IsAutoFeedingEnabled(animal);
+            bool isInSpecialEnvironment = animal.LivingEnvironment is PetShop || animal.LivingEnvironment is Wilderness;
+            
             Console.WriteLine($"\nАвтогодівля: {(isEnabled ? "УВІМКНЕНА" : "ВИМКНЕНА")}");
+            if (isInSpecialEnvironment)
+            {
+                Console.WriteLine($"Тварина знаходиться в середовищі: {animal.LivingEnvironment.Name}");
+            }
+            
             ConsoleOutput.ShowMenuItem(1, isEnabled ? "Вимкнути автогодівлю" : "Увімкнути автогодівлю");
             ConsoleOutput.ShowMenuItem(0, "Назад");
 

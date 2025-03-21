@@ -6,6 +6,13 @@ namespace APPZ_lab1_v6.UI
 {
     public static class ConsoleOutput
     {
+        private static void WriteColoredLine(string message, ConsoleColor color, string prefix = "")
+        {
+            Console.ForegroundColor = color;
+            Console.WriteLine($"{prefix}{message}");
+            Console.ResetColor();
+        }
+
         public static void ShowTitle(string title)
         {
             Console.ForegroundColor = ConsoleColor.Cyan;
@@ -15,26 +22,11 @@ namespace APPZ_lab1_v6.UI
             Console.ResetColor();
         }
 
-        public static void ShowMessage(string message)
-        {
-            Console.ForegroundColor = ConsoleColor.White;
-            Console.WriteLine(message);
-            Console.ResetColor();
-        }
+        public static void ShowMessage(string message) => WriteColoredLine(message, ConsoleColor.White);
 
-        public static void ShowSuccess(string message)
-        {
-            Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine($"✓ {message}");
-            Console.ResetColor();
-        }
+        public static void ShowSuccess(string message) => WriteColoredLine(message, ConsoleColor.Green, "✓ ");
 
-        public static void ShowError(string message)
-        {
-            Console.ForegroundColor = ConsoleColor.Red;
-            Console.WriteLine($"✗ {message}");
-            Console.ResetColor();
-        }
+        public static void ShowError(string message) => WriteColoredLine(message, ConsoleColor.Red, "✗ ");
 
         public static void ShowAnimalInfo(IAnimal animal, IAnimalStateService stateService, IAnimalActionService actionService)
         {
@@ -67,7 +59,7 @@ namespace APPZ_lab1_v6.UI
 
             if (animal.IsAlive)
             {
-                Console.WriteLine("\n*** Демонстрація дій ***");
+                Console.WriteLine("\n==Демонстрація дій==");
                 actionService.ShowAnimalActions(animal);
             }
         }
