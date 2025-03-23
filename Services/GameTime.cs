@@ -38,7 +38,7 @@ namespace APPZ_lab1_v6.Services
 
             while (IsRunning)
             {
-                double gameSecondsPerRealSecond = (24.0 * 60.0 * 60.0) / (GameSpeedMinutesPerDay * 60.0);
+                double gameSecondsPerRealSecond = 24.0 * 60.0 * 60.0 / (GameSpeedMinutesPerDay * 60.0);
                 CurrentTime = CurrentTime.AddSeconds(gameSecondsPerRealSecond);
 
                 if (CurrentTime.Hour != lastHour.Hour || CurrentTime.Day != lastHour.Day)

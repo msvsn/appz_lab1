@@ -26,34 +26,46 @@ namespace APPZ_lab1_v6.Services.Animals
             bool isHungry = _stateService.IsHungry(animal);
             Console.ForegroundColor = isHungry ? ConsoleColor.Red : ConsoleColor.Green;
 
-            if (animal is Dog)
+            if (animal is Dog dog)
             {
                 if (isHungry)
+                {
                     Console.WriteLine($"Тварина {animal.Name} сидить.");
+                    if (dog.Walk())
+                        Console.WriteLine($"Тварина {animal.Name} повільно ходить.");
+                }
                 else
                 {
-                    Console.WriteLine($"Тварина {animal.Name} швидко бігає.");
-                    Console.WriteLine($"Тварина {animal.Name} стрибає.");
+                    if (dog.Run())
+                        Console.WriteLine($"Тварина {animal.Name} швидко бігає.");
                 }
             }
-            else if (animal is Canary)
+            else if (animal is Canary canary)
             {
                 if (isHungry)
+                {
                     Console.WriteLine($"Тварина {animal.Name} сидить.");
+                }
                 else
                 {
-                    Console.WriteLine($"Тварина {animal.Name} літає.");
-                    Console.WriteLine($"Тварина {animal.Name} співає.");
+                    if (canary.Fly())
+                        Console.WriteLine($"Тварина {animal.Name} літає.");
+                    if (canary.Sing())
+                        Console.WriteLine($"Тварина {animal.Name} співає.");
                 }
             }
-            else if (animal is Lizard)
+            else if (animal is Lizard lizard)
             {
                 if (isHungry)
-                    Console.WriteLine($"Тварина {animal.Name} повзає.");
+                {
+                    Console.WriteLine($"Тварина {animal.Name} сидить.");
+                }
                 else
-                    Console.WriteLine($"Тварина {animal.Name} дуже швидко бігає.");
+                {
+                    if (lizard.Crawl())
+                        Console.WriteLine($"Тварина {animal.Name} швидко повзає.");
+                }
             }
-
             Console.ResetColor();
         }
     }

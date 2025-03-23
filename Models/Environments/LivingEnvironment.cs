@@ -26,6 +26,6 @@ namespace APPZ_lab1_v6.Models.Environments
             return true;
         }
 
-        public virtual List<IAnimal> GetAnimals() => new List<IAnimal>(Animals);
+        public virtual List<IAnimal> GetAnimals() => [.. Animals];
     }
 }

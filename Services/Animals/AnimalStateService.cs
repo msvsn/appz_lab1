@@ -1,6 +1,7 @@
 using System;
 using APPZ_lab1_v6.Models.Interfaces;
 using APPZ_lab1_v6.Models.Animals;
+using APPZ_lab1_v6.Models.Environments;
 
 namespace APPZ_lab1_v6.Services.Animals
 {
@@ -40,7 +41,10 @@ namespace APPZ_lab1_v6.Services.Animals
 
         public bool ShouldDie(IAnimal animal)
         {
-            if (!animal.IsAlive || animal.LivingEnvironment?.Name.Contains("Зоомагазин") == true) return false;
+            if (!animal.IsAlive || animal.LivingEnvironment is PetShop || animal.LivingEnvironment is Wilderness)
+            {
+                return false;
+            }
             var timeSinceFeeding = (_gameTime.CurrentTime - animal.LastFeedingTime).TotalHours;
             return timeSinceFeeding > DEATH_THRESHOLD_HOURS;
         }

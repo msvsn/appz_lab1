@@ -15,5 +15,6 @@ namespace APPZ_lab1_v6.Models.Animals
         }
 
         public override bool Run() => IsAlive;
+        public override bool Walk() => IsAlive;
     }
 }
