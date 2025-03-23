@@ -9,11 +9,17 @@ namespace APPZ_lab1_v6.Services
     public class AutoFeeder : IAutoFeeder
     {
         private readonly IAnimalStateService _stateService;
+        private IAnimalActionService _actionService;
         private readonly HashSet<Guid> _autoFedAnimals = new();
 
         public AutoFeeder(IAnimalStateService stateService)
         {
             _stateService = stateService;
+        }
+
+        public void SetActionService(IAnimalActionService actionService)
+        {
+            _actionService = actionService;
         }
 
         public void EnableAutoFeeding(IAnimal animal)
@@ -23,7 +29,7 @@ namespace APPZ_lab1_v6.Services
                 _autoFedAnimals.Add(animal.Id);
                 if (_stateService.NeedsFeeding(animal) || _stateService.IsHungry(animal))
                 {
-                    _stateService.Feed(animal);
+                    _actionService.Feed(animal);
                 }
             }
         }
@@ -39,7 +45,7 @@ namespace APPZ_lab1_v6.Services
                 var animal = AnimalService.Instance.GetAnimalById(animalId);
                 if (animal != null && animal.IsAlive && _stateService.NeedsFeeding(animal))
                 {
-                    _stateService.Feed(animal);
+                    _actionService.Feed(animal);
                 }
             }
         }

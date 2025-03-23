@@ -1,5 +1,6 @@
 using System;
 using APPZ_lab1_v6.Models.Interfaces;
+using APPZ_lab1_v6.Models.Animals;
 
 namespace APPZ_lab1_v6.Services.Animals
 {
@@ -9,10 +10,16 @@ namespace APPZ_lab1_v6.Services.Animals
         private const int MAX_FEEDINGS_PER_DAY = 5;
         private const double DEATH_THRESHOLD_HOURS = 24.0;
         private readonly IGameTime _gameTime;
-
+        private IEnvironmentService _environmentService;
         public IGameTime GameTime => _gameTime;
-
-        public AnimalStateService(IGameTime gameTime) => _gameTime = gameTime;
+        public AnimalStateService(IGameTime gameTime)
+        {
+            _gameTime = gameTime;
+        }
+        public void SetEnvironmentService(IEnvironmentService environmentService)
+        {
+            _environmentService = environmentService;
+        }
 
         public bool IsHungry(IAnimal animal)
         {
@@ -22,9 +29,13 @@ namespace APPZ_lab1_v6.Services.Animals
 
         public bool IsHappy(IAnimal animal)
         {
-            return animal.LivingEnvironment != null &&
-                   (!animal.LivingEnvironment.NeedsCleaning ||
-                    (animal.LivingEnvironment is ICleanable cleanable && cleanable.IsCleanEnoughForHappiness));
+            if (animal.LivingEnvironment == null) return false;
+            if (!animal.LivingEnvironment.NeedsCleaning) return true;
+            if (_environmentService != null && animal.LivingEnvironment is ICleanable cleanable)
+            {
+                return _environmentService.IsCleanEnoughForHappiness(cleanable);
+            }
+            return false;
         }
 
         public bool ShouldDie(IAnimal animal)
@@ -56,17 +67,15 @@ namespace APPZ_lab1_v6.Services.Animals
                 animal.LastFeedingCountDate = _gameTime.CurrentTime.Date;
             }
 
-            // Якщо тварина голодна, періодично повідомляємо про це (кожну годину)
             bool isCurrentlyHungry = IsHungry(animal);
             if (isCurrentlyHungry && hoursSinceLastCheck >= 1.0)
             {
-                animal.OnHungryStateChanged(true, hoursSinceFeeding);
+                if (animal is Animal animalImpl) animalImpl.OnHungryStateChanged(true, hoursSinceFeeding);
                 animal.LastGameTimeCheck = _gameTime.CurrentTime;
             }
-            // Сповіщаємо про зміну стану голоду
             else if (wasHungry != isCurrentlyHungry)
             {
-                animal.OnHungryStateChanged(isCurrentlyHungry, hoursSinceFeeding);
+                if (animal is Animal animalImpl) animalImpl.OnHungryStateChanged(isCurrentlyHungry, hoursSinceFeeding);
                 animal.LastGameTimeCheck = _gameTime.CurrentTime;
             }
             else
@@ -75,12 +84,13 @@ namespace APPZ_lab1_v6.Services.Animals
             }
 
             if (wasHappy != IsHappy(animal))
-                animal.OnHappinessStateChanged(IsHappy(animal), animal.LivingEnvironment?.Name ?? "Невідомо");
+                if (animal is Animal animalImpl) animalImpl.OnHappinessStateChanged(IsHappy(animal), animal.LivingEnvironment?.Name ?? "Невідомо");
+            
             if (wasAlive != animal.IsAlive)
-                animal.OnDeathStateChanged(hoursSinceFeeding);
+                if (animal is Animal animalImpl) animalImpl.OnDeathStateChanged(hoursSinceFeeding);
         }
 
-        public bool Feed(IAnimal animal)
+        internal bool Feed(IAnimal animal)
         {
             if (!animal.IsAlive) return false;
             if (animal.FeedingsToday >= MAX_FEEDINGS_PER_DAY) return false;

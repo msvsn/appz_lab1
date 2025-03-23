@@ -132,28 +132,28 @@ namespace APPZ_lab1_v6.UI
             var owner = SelectOwner();
             if (owner == null) return;
 
-            var environment = owner.GetAnimals().FirstOrDefault()?.LivingEnvironment as ICleanable;
+            var environment = owner.GetHome() as ICleanable;
             
             if (environment == null)
             {
-                ConsoleOutput.ShowError("У хазяїна немає тварин або дому!");
+                ConsoleOutput.ShowError("Немає за ким прибрати");
                 ConsoleOutput.WaitForKey();
                 return;
             }
             
             if (_animalService.CleanEnvironment(environment))
-                ConsoleOutput.ShowSuccess($"{owner.Name} прибрав у домі!");
+                ConsoleOutput.ShowSuccess($"{owner.Name} прибрав у домі");
             else
             {
                 var gameTime = _animalService.StateService.GameTime;
                 var timeRemaining = 4.0 - (gameTime.CurrentTime - environment.LastCleaningTime).TotalHours;
                 if (timeRemaining > 0)
                 {
-                    ConsoleOutput.ShowError($"Занадто рано для прибирання! Спробуйте пізніше (приблизно через {timeRemaining:F1} годин ігрового часу).");
+                    ConsoleOutput.ShowError($"Занадто рано для прибирання. Спробуйте пізніше (приблизно через {timeRemaining:F1} годин ігрового часу).");
                 }
                 else
                 {
-                    ConsoleOutput.ShowError("Не вдалося прибрати!");
+                    ConsoleOutput.ShowError("Не вдалося прибрати.");
                 }
             }
             ConsoleOutput.WaitForKey();

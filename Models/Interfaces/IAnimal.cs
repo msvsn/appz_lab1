@@ -4,7 +4,7 @@ using APPZ_lab1_v6.Models.Parts;
 
 namespace APPZ_lab1_v6.Models.Interfaces
 {
-    public interface IAnimal : IEatable, IAnimalStateChanged, IActionable, IMovable
+    public interface IAnimal : IAnimalStateChanged, IMovable
     {
         Guid Id { get; }
         string Name { get; set; }
@@ -13,9 +13,5 @@ namespace APPZ_lab1_v6.Models.Interfaces
         ILivingEnvironment LivingEnvironment { get; set; }
         Eyes Eyes { get; set; }
         Legs Legs { get; set; }
-        void UpdateState(IAnimalStateService stateService);
-        void OnHungryStateChanged(bool isHungry, double hoursSinceFeeding);
-        void OnHappinessStateChanged(bool isHappy, string environmentName);
-        void OnDeathStateChanged(double hoursWithoutFood);
     }
 }

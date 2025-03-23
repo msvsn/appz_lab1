@@ -4,5 +4,6 @@ namespace APPZ_lab1_v6.Models.Interfaces
     {
         void UpdateEnvironment(ILivingEnvironment environment);
         bool CleanEnvironment(ICleanable environment);
+        bool IsCleanEnoughForHappiness(ICleanable environment);
     }
 }

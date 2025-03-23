@@ -11,5 +11,7 @@ namespace APPZ_lab1_v6.Models.Interfaces
         int FeedingsToday { get; set; }
         DateTime LastFeedingCountDate { get; set; }
         DateTime LastGameTimeCheck { get; set; }
+        DateTime LastFeedingTime { get; set; }
+        int MealsPerDay { get; }
     }
 }

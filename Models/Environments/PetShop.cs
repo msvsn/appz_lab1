@@ -11,18 +11,11 @@ namespace APPZ_lab1_v6.Models.Environments
         public override string Name => $"Зоомагазин \"{_shopName}\"";
         public override bool NeedsCleaning => true;
         public DateTime LastCleaningTime { get; set; }
-        public bool IsCleanEnoughForHappiness => (DateTime.Now - LastCleaningTime).TotalHours <= 24.0;
 
         public PetShop(string shopName)
         {
             _shopName = shopName;
             LastCleaningTime = DateTime.Now;
-        }
-
-        public bool Clean()
-        {
-            LastCleaningTime = DateTime.Now;
-            return true;
         }
     }
 }

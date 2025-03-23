@@ -7,5 +7,6 @@ namespace APPZ_lab1_v6.Models.Interfaces
         bool IsAutoFeedingEnabled(IAnimal animal);
         void FeedAutoFedAnimals();
         void EnableAutoFeedingForEnvironment(ILivingEnvironment environment);
+        void SetActionService(IAnimalActionService actionService);
     }
 }

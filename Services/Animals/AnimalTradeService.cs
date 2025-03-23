@@ -11,6 +11,7 @@ namespace APPZ_lab1_v6.Services.Animals
         private readonly Wilderness _wilderness;
         private readonly IAnimalStateService _stateService;
         private readonly IAutoFeeder _autoFeeder;
+        private IAnimalActionService _actionService;
 
         public AnimalTradeService(PetShop petShop, Wilderness wilderness, IAnimalStateService stateService, IAutoFeeder autoFeeder)
         {
@@ -20,6 +21,11 @@ namespace APPZ_lab1_v6.Services.Animals
             _autoFeeder = autoFeeder;
         }
 
+        public void SetActionService(IAnimalActionService actionService)
+        {
+            _actionService = actionService;
+        }
+
         public bool BuyAnimal(IAnimal animal, Owner owner)
         {
             if (!animal.IsAlive) return false;
@@ -27,7 +33,7 @@ namespace APPZ_lab1_v6.Services.Animals
             {
                 _autoFeeder.DisableAutoFeeding(animal);
                 
-                _stateService.Feed(animal);
+                _actionService.Feed(animal);
                 SubscribeToAnimalEvents(animal);
                 return owner.AddAnimal(animal);
             }

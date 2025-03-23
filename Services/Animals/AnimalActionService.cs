@@ -8,10 +8,10 @@ namespace APPZ_lab1_v6.Services.Animals
 {
     public class AnimalActionService : IAnimalActionService
     {
-        private readonly IAnimalStateService _stateService;
+        private readonly AnimalStateService _stateService;
         private readonly IGameTime _gameTime;
 
-        public AnimalActionService(IAnimalStateService stateService, IGameTime gameTime)
+        public AnimalActionService(AnimalStateService stateService, IGameTime gameTime)
         {
             _stateService = stateService;
             _gameTime = gameTime;

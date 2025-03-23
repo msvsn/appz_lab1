@@ -10,18 +10,11 @@ namespace APPZ_lab1_v6.Models.Environments
         public override string Name => $"Дім хазяїна {_ownerName}";
         public override bool NeedsCleaning => true;
         public DateTime LastCleaningTime { get; set; }
-        public bool IsCleanEnoughForHappiness => (DateTime.Now - LastCleaningTime).TotalHours <= 24.0;
 
         public OwnerHome(string ownerName)
         {
             _ownerName = ownerName;
             LastCleaningTime = DateTime.Now;
-        }
-
-        public bool Clean()
-        {
-            LastCleaningTime = DateTime.Now;
-            return true;
         }
     }
 }

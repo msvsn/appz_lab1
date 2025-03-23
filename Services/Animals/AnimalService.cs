@@ -49,6 +49,7 @@ namespace APPZ_lab1_v6.Services.Animals
             _wilderness = wilderness;
             _allAnimals = animalList;
 
+            autoFeeder.SetActionService(actionService);
             _gameTime.HourPassed += (sender, time) => UpdateAll();
             _gameTime.Start();
         }
@@ -64,7 +65,10 @@ namespace APPZ_lab1_v6.Services.Animals
 
         public void UpdateAll()
         {
-            foreach (var animal in _allAnimals) _stateService.UpdateState(animal);
+            foreach (var animal in _allAnimals) 
+            {
+                _stateService.UpdateState(animal);
+            }
             _environmentService.UpdateEnvironment(_petShop);
             _environmentService.UpdateEnvironment(_wilderness);
             _autoFeeder.FeedAutoFedAnimals();

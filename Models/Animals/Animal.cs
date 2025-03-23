@@ -50,10 +50,5 @@ namespace APPZ_lab1_v6.Models.Animals
             HappinessStateChanged?.Invoke(this, new HappinessEventArgs(Name, isHappy, environmentName));
         public virtual void OnDeathStateChanged(double hoursWithoutFood) => 
             DeathStateChanged?.Invoke(this, new DeathEventArgs(Name, hoursWithoutFood));
-
-        public void UpdateState(IAnimalStateService stateService)
-        {
-            stateService.UpdateState(this);
-        }
     }
 }

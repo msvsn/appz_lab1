@@ -6,5 +6,6 @@ namespace APPZ_lab1_v6.Models.Interfaces
     {
         bool BuyAnimal(IAnimal animal, Owner owner);
         bool ReleaseAnimal(IAnimal animal, Owner owner);
+        void SetActionService(IAnimalActionService actionService);
     }
 }
